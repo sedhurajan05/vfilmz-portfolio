@@ -69,7 +69,8 @@ section { padding: 6rem 0; }
   font-size: 1.1rem; cursor: pointer; box-shadow: var(--shadow);
   transition: transform .3s;
 }
-.settings-toggle:hover { transform: rotate(30deg); }
+.settings-toggle:hover { transform: rotate(15deg); }
+.settings-toggle.open { transform: rotate(90deg); }
 
 /* ── SETTINGS PANEL ── */
 .settings-panel {
