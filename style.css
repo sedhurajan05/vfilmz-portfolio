@@ -78,8 +78,10 @@ section { padding: 6rem 0; }
   padding: 1.4rem; width: 220px; border-radius: 4px;
   box-shadow: var(--shadow);
   transform: translateY(20px) scale(.95); opacity: 0; pointer-events: none;
-  transition: all .3s;
+  transition: opacity .15s, transform .15s;
 }
+.filter-group { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin: 1.2rem 0 2rem; }
+.filter-group .sw { padding: .4rem 1.1rem; font-size: .8rem; }
 .settings-panel.open { transform: translateY(0) scale(1); opacity: 1; pointer-events: all; }
 .settings-panel h4 { font-family: 'Playfair Display', serif; color: var(--accent); margin-bottom: 1rem; font-size: 1rem; }
 .settings-panel label { display: block; font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; color: var(--text2); margin: .9rem 0 .4rem; }
