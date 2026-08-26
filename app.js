@@ -76,7 +76,10 @@ document.addEventListener('keydown', e => {
 // ── SETTINGS PANEL ──
 const settingsToggle = document.getElementById('settingsToggle');
 const settingsPanel = document.getElementById('settingsPanel');
-settingsToggle.addEventListener('click', () => settingsPanel.classList.toggle('open'));
+settingsToggle.addEventListener('click', e => {
+  e.stopPropagation();
+  settingsPanel.classList.toggle('open');
+});
 document.addEventListener('click', e => {
   if (!settingsPanel.contains(e.target) && e.target !== settingsToggle)
     settingsPanel.classList.remove('open');
