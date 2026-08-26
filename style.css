@@ -277,3 +277,6 @@ footer p { color: var(--text2); font-size: .8rem; }
   .stats { gap: 1.5rem; }
 }
 
+
+.filter-group { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin: 1.2rem 0 2rem; }
+.filter-group .sw { padding: .4rem 1.1rem; font-size: .8rem; }
