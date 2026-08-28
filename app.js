@@ -131,13 +131,15 @@ document.querySelectorAll('#navbar ul a').forEach(a => {
 });
 
 // ── CONTACT FORM ──
-function handleForm(e) {
+document.getElementById('contactForm').addEventListener('submit', async e => {
   e.preventDefault();
   const msg = document.getElementById('formMsg');
-  msg.textContent = 'Thank you! I\'ll be in touch within 24 hours.';
-  e.target.reset();
+  const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: new FormData(e.target) });
+  const data = await res.json();
+  msg.textContent = data.success ? 'Thank you! I\'ll be in touch within 24 hours.' : 'Something went wrong. Please try again.';
+  if (data.success) e.target.reset();
   setTimeout(() => msg.textContent = '', 5000);
-}
+});
 
 // ── INIT ──
 renderGallery();
