@@ -13,8 +13,8 @@ async function fetchFromCloudinary(cat) {
   if (!res.ok) return [];
   const data = await res.json();
   return data.resources.map(r => ({
-    src: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto/${r.public_id}`,
-    title: r.public_id.split('/').pop().replace(/[-_]/g, ' '),
+    src: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto/${r.asset_folder}/${r.public_id}.${r.format}`,
+    title: r.public_id.replace(/[-_]/g, ' '),
     cat,
     h: r.height > r.width ? 'tall' : 'wide'
   }));
