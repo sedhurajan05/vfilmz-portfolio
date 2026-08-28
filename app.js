@@ -1,23 +1,30 @@
-// ── PHOTO DATA ──
-const photos = [
-  { src: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=800&q=80', title: 'Golden Hour', cat: 'portrait', h: 'tall' },
-  { src: 'https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80', title: 'Forever Yours', cat: 'wedding', h: 'wide' },
-  { src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80', title: 'Mountain Serenity', cat: 'landscape', h: 'tall' },
-  { src: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=800&q=80', title: 'Vogue Edit', cat: 'fashion', h: 'wide' },
-  { src: 'https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=800&q=80', title: 'Natural Light', cat: 'portrait', h: 'wide' },
-  { src: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=800&q=80', title: 'First Dance', cat: 'wedding', h: 'tall' },
-  { src: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80', title: 'Valley Mist', cat: 'landscape', h: 'wide' },
-  { src: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=800&q=80', title: 'Runway Ready', cat: 'fashion', h: 'tall' },
-  { src: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80', title: 'The Gaze', cat: 'portrait', h: 'wide' },
-  { src: 'https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?w=800&q=80', title: 'Ceremony', cat: 'wedding', h: 'tall' },
-  { src: 'https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=800&q=80', title: 'Lakeside Dawn', cat: 'landscape', h: 'wide' },
-  { src: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80', title: 'Editorial', cat: 'fashion', h: 'tall' },
-];
+// ── CLOUDINARY CONFIG ──
+const CLOUD_NAME = 'xzxbk8qv';
+const CATEGORIES = ['portrait', 'wedding', 'landscape', 'fashion', 'drone'];
 
 let currentCat = 'all';
 let currentGallery = 'masonry';
 let lbIndex = 0;
 let filteredPhotos = [];
+let photos = [];
+
+async function fetchFromCloudinary(cat) {
+  const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/vfilmz_${cat}.json`);
+  if (!res.ok) return [];
+  const data = await res.json();
+  return data.resources.map(r => ({
+    src: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto/${r.public_id}`,
+    title: r.public_id.replace(/[-_]/g, ' '),
+    cat,
+    h: r.height > r.width ? 'tall' : 'wide'
+  }));
+}
+
+async function loadAllPhotos() {
+  const results = await Promise.all(CATEGORIES.map(fetchFromCloudinary));
+  photos = results.flat();
+  renderGallery();
+}
 
 // ── RENDER GALLERY ──
 function renderGallery() {
@@ -142,4 +149,4 @@ document.getElementById('contactForm').addEventListener('submit', async e => {
 });
 
 // ── INIT ──
-renderGallery();
+loadAllPhotos();
