@@ -1,5 +1,5 @@
 // ── CLOUDINARY CONFIG ──
-const CLOUD_NAME = 'xzxbk8qv';
+const CLOUD_NAME = 'qoots4a0';
 const CATEGORIES = ['portrait', 'wedding', 'landscape', 'fashion', 'drone'];
 
 let currentCat = 'all';
