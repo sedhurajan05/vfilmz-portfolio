@@ -154,6 +154,17 @@ document.querySelectorAll('[data-cat]').forEach(btn => {
   });
 });
 
+// ── WEDDING OPTIONS ──
+document.getElementById('serviceSelect').addEventListener('change', function() {
+  document.getElementById('weddingOptions').classList.toggle('show', this.value === 'Wedding');
+});
+
+// ── SUB SERVICES TOGGLE ──
+document.querySelector('.sub-toggle').addEventListener('click', e => {
+  e.stopPropagation();
+  e.currentTarget.closest('.service-card').classList.toggle('expanded');
+});
+
 // ── NAV ──
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
