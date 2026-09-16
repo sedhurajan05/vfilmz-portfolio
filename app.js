@@ -154,6 +154,12 @@ document.querySelectorAll('[data-cat]').forEach(btn => {
   });
 });
 
+// ── SUB SERVICES TOGGLE ──
+document.querySelector('.sub-toggle').addEventListener('click', e => {
+  e.stopPropagation();
+  e.currentTarget.closest('.service-card').classList.toggle('expanded');
+});
+
 // ── NAV ──
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {

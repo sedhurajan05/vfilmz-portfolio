@@ -234,6 +234,14 @@ body[data-gallery="lightbox"] .g-card:hover img { transform: scale(1.06); }
 .service-card h3 { font-size: 1.2rem; margin-bottom: .8rem; }
 .service-card p { color: var(--text2); font-size: .88rem; line-height: 1.7; margin-bottom: 1.2rem; }
 .price { font-size: .8rem; letter-spacing: .1em; color: var(--accent); border: 1px solid var(--border); padding: .3rem .8rem; }
+.sub-services { max-height: 0; overflow: hidden; transition: max-height .4s ease; display: flex; flex-direction: column; gap: .6rem; margin-top: 0; }
+.service-card.expanded .sub-services { max-height: 200px; margin-top: 1.2rem; }
+.sub-service { font-size: .78rem; color: var(--text2); display: flex; align-items: center; gap: .6rem; padding: .4rem .6rem; border: 1px solid var(--border); border-radius: 2px; text-align: left; }
+.sub-service i { color: var(--accent); width: 14px; font-size: .75rem; flex-shrink: 0; }
+.sub-price { margin-left: auto; color: var(--accent); font-size: .72rem; white-space: nowrap; }
+.sub-toggle { margin-top: 1rem; background: transparent; border: none; color: var(--accent); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; font-family: 'Raleway', sans-serif; display: flex; align-items: center; gap: .4rem; justify-content: center; width: 100%; vertical-align: middle; }
+.sub-toggle i { transition: transform .3s; font-size: .72rem; vertical-align: middle; position: relative; top: 0; }
+.service-card.expanded .sub-toggle i { transform: rotate(180deg); }
 
 /* ── CONTACT ── */
 #contact { background: var(--bg3); }
