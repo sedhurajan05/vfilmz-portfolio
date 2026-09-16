@@ -166,10 +166,13 @@ document.querySelectorAll('.flip-card').forEach(card => {
 });
 
 // ── SUB SERVICES TOGGLE ──
-document.querySelector('.sub-toggle').addEventListener('click', e => {
-  e.stopPropagation();
-  e.currentTarget.closest('.service-card').classList.toggle('expanded');
-});
+const subToggle = document.querySelector('.sub-toggle');
+if (subToggle) {
+  subToggle.addEventListener('click', e => {
+    e.stopPropagation();
+    e.currentTarget.closest('.service-card').classList.toggle('expanded');
+  });
+}
 
 // ── NAV ──
 const navbar = document.getElementById('navbar');
@@ -180,6 +183,7 @@ const scrollHandler = () => {
 window.addEventListener('scroll', scrollHandler, { passive: true });
 document.addEventListener('scroll', scrollHandler, { passive: true });
 window.addEventListener('touchmove', scrollHandler, { passive: true });
+new IntersectionObserver(([e]) => navbar.classList.toggle('scrolled', !e.isIntersecting), { threshold: 0.1 }).observe(document.getElementById('hero'));
 document.getElementById('hamburger').addEventListener('click', () => {
   document.querySelector('#navbar ul').classList.toggle('open');
 });
