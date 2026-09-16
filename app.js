@@ -1,5 +1,5 @@
 // ── CLOUDINARY CONFIG ──
-const CLOUD_NAME = 'xzxbk8qv';
+const CLOUD_NAME = 'qoots4a0';
 const CATEGORIES = ['portrait', 'wedding', 'landscape', 'fashion', 'drone'];
 
 let currentCat = 'all';
@@ -9,15 +9,24 @@ let filteredPhotos = [];
 let photos = [];
 
 async function fetchFromCloudinary(cat) {
-  const res = await fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/vfilmz_${cat}.json`);
-  if (!res.ok) return [];
-  const data = await res.json();
-  return data.resources.map(r => ({
+  const [imgRes, vidRes] = await Promise.all([
+    fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/vfilmz_${cat}.json`),
+    fetch(`https://res.cloudinary.com/${CLOUD_NAME}/video/list/vfilmz_${cat}.json`)
+  ]);
+  const images = imgRes.ok ? (await imgRes.json()).resources.map(r => ({
     src: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto/${r.public_id}`,
     title: r.public_id.replace(/[-_]/g, ' '),
-    cat,
+    cat, type: 'image',
     h: r.height > r.width ? 'tall' : 'wide'
-  }));
+  })) : [];
+  const videos = vidRes.ok ? (await vidRes.json()).resources.map(r => ({
+    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto/${r.public_id}.${r.format}`,
+    thumb: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto,f_auto,so_0/${r.public_id}.jpg`,
+    title: r.public_id.replace(/[-_]/g, ' '),
+    cat, type: 'video',
+    h: r.height > r.width ? 'wide' : 'tall'
+  })) : [];
+  return [...images, ...videos];
 }
 
 async function loadAllPhotos() {
@@ -34,7 +43,12 @@ function renderGallery() {
   filteredPhotos.forEach((p, i) => {
     const card = document.createElement('div');
     card.className = 'g-card';
-    card.innerHTML = `
+    card.innerHTML = p.type === 'video' ? `
+      <video src="${p.src}" poster="${p.thumb}" muted loop playsinline></video>
+      <div class="g-overlay">
+        <span>${p.title}</span>
+        <small>${p.cat} · <i class="fa-solid fa-play"></i></small>
+      </div>` : `
       <img src="${p.src}" alt="${p.title}" loading="lazy"/>
       <div class="g-overlay">
         <span>${p.title}</span>
@@ -55,10 +69,25 @@ function openLightbox(i) {
 function closeLightbox() {
   document.getElementById('lightbox').classList.remove('active');
   document.body.style.overflow = '';
+  const lbVid = document.getElementById('lbVid');
+  lbVid.pause();
+  lbVid.src = '';
 }
 function updateLightbox() {
   const p = filteredPhotos[lbIndex];
-  document.getElementById('lbImg').src = p.src;
+  const lbImg = document.getElementById('lbImg');
+  const lbVid = document.getElementById('lbVid');
+  if (p.type === 'video') {
+    lbImg.style.display = 'none';
+    lbVid.style.display = 'block';
+    lbVid.src = p.src;
+    lbVid.play();
+  } else {
+    lbVid.style.display = 'none';
+    lbVid.pause();
+    lbImg.style.display = 'block';
+    lbImg.src = p.src;
+  }
   document.getElementById('lbCaption').textContent = p.title + ' · ' + p.cat;
 }
 document.getElementById('lbClose').addEventListener('click', closeLightbox);
