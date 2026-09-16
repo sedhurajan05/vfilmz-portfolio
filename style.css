@@ -235,12 +235,13 @@ body[data-gallery="lightbox"] .g-card:hover img { transform: scale(1.06); }
 .service-card p { color: var(--text2); font-size: .88rem; line-height: 1.7; margin-bottom: 1.2rem; }
 .price { font-size: .8rem; letter-spacing: .1em; color: var(--accent); border: 1px solid var(--border); padding: .3rem .8rem; }
 .sub-services { max-height: 0; overflow: hidden; transition: max-height .4s ease; display: flex; flex-direction: column; gap: .6rem; margin-top: 0; }
-.service-card.expanded .sub-services { max-height: 200px; margin-top: 1.2rem; }
-.sub-service { font-size: .78rem; color: var(--text2); display: flex; align-items: center; gap: .6rem; padding: .4rem .6rem; border: 1px solid var(--border); border-radius: 2px; text-align: left; }
-.sub-service i { color: var(--accent); width: 14px; font-size: .75rem; flex-shrink: 0; }
+.service-card.expanded .sub-services { max-height: 220px; margin-top: 1.2rem; padding-bottom: .2rem; }
+.sub-service { font-size: .78rem; color: var(--text2); display: flex; align-items: center; gap: .5rem; padding: .6rem .8rem; border: 1px solid var(--border); border-radius: 2px; white-space: nowrap; }
+.sub-service i { color: var(--accent); width: 14px; font-size: .75rem; flex-shrink: 0; display: inline-block; vertical-align: middle; margin-bottom: 0; }
 .sub-price { margin-left: auto; color: var(--accent); font-size: .72rem; white-space: nowrap; }
-.sub-toggle { margin-top: 1rem; background: transparent; border: none; color: var(--accent); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; font-family: 'Raleway', sans-serif; display: flex; align-items: center; gap: .4rem; justify-content: center; width: 100%; vertical-align: middle; }
-.sub-toggle i { transition: transform .3s; font-size: .72rem; vertical-align: middle; position: relative; top: 0; }
+.sub-price { margin-left: auto; color: var(--accent); font-size: .72rem; white-space: nowrap; }
+.sub-toggle { margin-top: 1.2rem; background: transparent; border: none; color: var(--accent); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; cursor: pointer; font-family: 'Raleway', sans-serif; width: 100%; text-align: center; padding-top: .8rem; }
+.sub-toggle i { transition: transform .3s; font-size: .72rem; margin-left: .4rem; }
 .service-card.expanded .sub-toggle i { transform: rotate(180deg); }
 
 /* ── CONTACT ── */
@@ -258,10 +259,13 @@ body[data-gallery="lightbox"] .g-card:hover img { transform: scale(1.06); }
   padding: .9rem 1.2rem; font-family: 'Raleway', sans-serif; font-size: .9rem;
   outline: none; transition: border-color .2s; border-radius: 2px; width: 100%;
 }
-.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus { border-color: var(--accent); }
-.contact-form select option { background: var(--bg2); }
+.contact-form input:focus, .contact-form select:focus, .contact-form textarea:focus, .contact-form select:active { border-color: var(--accent); outline: none; }
+.contact-form select option { background: var(--bg2); color: var(--text); border: none; }
 .contact-form textarea { resize: vertical; }
-.form-msg { font-size: .85rem; color: var(--accent); min-height: 1.2rem; }
+.wedding-options { display: none; flex-direction: column; gap: .5rem; padding: .8rem 1rem; background: var(--bg2); border: 1px solid var(--border); border-radius: 2px; }
+.wedding-options.show { display: flex; }
+.wedding-options label { display: flex; align-items: center; gap: .6rem; font-size: .85rem; color: var(--text2); cursor: pointer; }
+.wedding-options input[type="checkbox"] { accent-color: var(--accent); width: 14px; height: 14px; cursor: pointer; }
 
 /* ── FOOTER ── */
 footer {

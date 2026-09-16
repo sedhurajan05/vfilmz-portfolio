@@ -52,8 +52,8 @@
     <div class="hero-content">
       <p class="hero-sub">Premium Photography</p>
       <h1>Capturing<br/><em>Timeless</em> Moments</h1>
-      <p class="hero-desc">Portrait · Wedding · Landscape · Fashion</p>
-      <a href="#gallery" class="btn-gold">View Portfolio</a>
+      <p class="hero-desc">Portrait · Wedding · Landscape · Fashion · Drone</p>
+      <a href="#gallery" class="btn-gold">Explore the Collections</a>
     </div>
     <div class="hero-scroll"><span></span></div>
   </section>
@@ -134,7 +134,7 @@
             <div class="sub-service"><i class="fa-solid fa-video"></i> Candid Video <span class="sub-price">From $499</span></div>
             <div class="sub-service"><i class="fa-solid fa-helicopter"></i> Wedding Drone <span class="sub-price">From $299</span></div>
           </div>
-          <button class="sub-toggle">View Packages <i class="fa-solid fa-chevron-down"></i></button>
+          <button class="sub-toggle">&nbsp;&nbsp;View Packages <i class="fa-solid fa-chevron-down"></i></button>
         </div>
         <div class="service-card">
           <i class="fa-solid fa-mountain-sun"></i>
@@ -176,13 +176,20 @@
         <input type="hidden" name="subject" value="New Client Message — Vfilmz Portfolio"/>
         <input type="text" name="name" placeholder="Your Name" required/>
         <input type="email" name="email" placeholder="Your Email" required/>
-        <select name="service">
+        <select name="service" id="serviceSelect">
           <option value="">Select Service</option>
           <option>Portrait</option>
-          <option>Wedding</option>
+          <option value="Wedding">Wedding</option>
           <option>Landscape</option>
           <option>Fashion</option>
+          <option>Drone</option>
         </select>
+        <div class="wedding-options" id="weddingOptions">
+          <label><input type="checkbox" name="wedding_service" value="Pre-wedding"/> Pre-wedding</label>
+          <label><input type="checkbox" name="wedding_service" value="Candid Photo"/> Candid Photo</label>
+          <label><input type="checkbox" name="wedding_service" value="Candid Video"/> Candid Video</label>
+          <label><input type="checkbox" name="wedding_service" value="Wedding Drone"/> Wedding Drone</label>
+        </div>
         <textarea name="message" rows="4" placeholder="Your Message" required></textarea>
         <button type="submit" class="btn-gold">Send Message</button>
         <p class="form-msg" id="formMsg"></p>
