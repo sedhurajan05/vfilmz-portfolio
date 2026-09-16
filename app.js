@@ -174,10 +174,12 @@ document.querySelector('.sub-toggle').addEventListener('click', e => {
 // ── NAV ──
 const navbar = document.getElementById('navbar');
 const scrollHandler = () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60 || document.documentElement.scrollTop > 60);
+  const scrolled = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+  navbar.classList.toggle('scrolled', scrolled > 60);
 };
-window.addEventListener('scroll', scrollHandler);
-document.addEventListener('scroll', scrollHandler);
+window.addEventListener('scroll', scrollHandler, { passive: true });
+document.addEventListener('scroll', scrollHandler, { passive: true });
+window.addEventListener('touchmove', scrollHandler, { passive: true });
 document.getElementById('hamburger').addEventListener('click', () => {
   document.querySelector('#navbar ul').classList.toggle('open');
 });
