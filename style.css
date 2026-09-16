@@ -81,6 +81,7 @@ section { padding: 6rem 0; }
   transform: translateY(20px) scale(.95); opacity: 0; pointer-events: none;
   transition: opacity .15s, transform .15s;
 }
+.g-card video { width: 100%; height: auto; border-radius: 2px; }
 .filter-group { display: flex; flex-wrap: wrap; gap: 1.8rem; justify-content: center; margin: 1.2rem 0 2rem; }
 .filter-group .sw {
   background: transparent; border: none; padding: .5rem 0 .5rem;

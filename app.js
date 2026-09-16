@@ -20,7 +20,7 @@ async function fetchFromCloudinary(cat) {
     h: r.height > r.width ? 'tall' : 'wide'
   })) : [];
   const videos = vidRes.ok ? (await vidRes.json()).resources.map(r => ({
-    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto/${r.public_id}.mp4`,
+    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto/${r.public_id}.${r.format}`,
     thumb: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto,f_auto,so_0/${r.public_id}.jpg`,
     title: r.public_id.replace(/[-_]/g, ' '),
     cat, type: 'video',
