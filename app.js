@@ -46,12 +46,10 @@ function renderGallery() {
     card.innerHTML = p.type === 'video' ? `
       <video src="${p.src}" poster="${p.thumb}" muted loop playsinline></video>
       <div class="g-overlay">
-        <span>${p.title}</span>
         <small>${p.cat} · <i class="fa-solid fa-play"></i></small>
       </div>` : `
-      <img src="${p.src}" alt="${p.title}" loading="lazy"/>
+      <img src="${p.src}" alt="" title="" loading="lazy"/>
       <div class="g-overlay">
-        <span>${p.title}</span>
         <small>${p.cat}</small>
       </div>`;
     card.addEventListener('click', () => openLightbox(i));
@@ -159,6 +157,14 @@ document.getElementById('serviceSelect').addEventListener('change', function() {
   document.getElementById('weddingOptions').classList.toggle('show', this.value === 'Wedding');
 });
 
+// ── SERVICE CARD FLIP ──
+document.querySelectorAll('.flip-card').forEach(card => {
+  card.addEventListener('click', e => {
+    if (e.target.closest('.sub-toggle')) return;
+    card.classList.toggle('flipped');
+  });
+});
+
 // ── SUB SERVICES TOGGLE ──
 document.querySelector('.sub-toggle').addEventListener('click', e => {
   e.stopPropagation();
@@ -167,9 +173,11 @@ document.querySelector('.sub-toggle').addEventListener('click', e => {
 
 // ── NAV ──
 const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
-});
+const scrollHandler = () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60 || document.documentElement.scrollTop > 60);
+};
+window.addEventListener('scroll', scrollHandler);
+document.addEventListener('scroll', scrollHandler);
 document.getElementById('hamburger').addEventListener('click', () => {
   document.querySelector('#navbar ul').classList.toggle('open');
 });
