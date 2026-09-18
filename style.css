@@ -26,10 +26,10 @@ body.theme-light {
   --bg2: #ece9e3;
   --bg3: #fff;
   --text: #1a1a1a;
-  --text2: #666;
-  --accent: #888;
-  --accent2: #555;
-  --border: rgba(0,0,0,.12);
+  --text2: #333;
+  --accent: #555;
+  --accent2: #333;
+  --border: rgba(0,0,0,.15);
   --card-bg: #fff;
   --nav-bg: rgba(245,243,239,.97);
   --overlay: rgba(0,0,0,.35);
@@ -296,7 +296,9 @@ footer p { color: var(--text2); font-size: .8rem; }
 .social a { color: var(--text2); font-size: 1rem; transition: color .2s; }
 .social a:hover { color: var(--accent); }
 
-/* ── RESPONSIVE ── */
+body.theme-light #navbar ul a,
+body.theme-light .hero-sub,
+body.theme-light .btn-gold { color: #e8e0d0; } */
 @media (max-width: 1024px) {
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   body[data-gallery="masonry"] .gallery-wrap,
