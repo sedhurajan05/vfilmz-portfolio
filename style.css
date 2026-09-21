@@ -157,7 +157,7 @@ body[data-gallery="lightbox"] .g-card:hover video { transform: scale(1.06); }
 /* ── ABOUT ── */
 #about { background: var(--bg2); }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
-.img-frame { position: relative; }
+.img-frame { position: relative; max-width: 420px; margin: 0 auto; }
 .img-frame img { border-radius: 2px; }
 .img-accent {
   position: absolute; bottom: -1.5rem; right: -1.5rem;
