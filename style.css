@@ -321,6 +321,8 @@ body.theme-light .btn-gold { color: #e8e0d0; } */
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
   .img-accent { display: none; }
   .services-grid { grid-template-columns: 1fr; }
+  .services-grid-bottom { flex-direction: column; }
+  .services-grid-bottom .flip-card { width: 100%; }
   body[data-gallery="masonry"] .gallery-wrap { columns: 2; }
   body[data-gallery="simple"] .gallery-wrap,
   body[data-gallery="lightbox"] .gallery-wrap { grid-template-columns: 1fr; }
