@@ -40,7 +40,7 @@ body.theme-light #navbar .logo span { color: #B8B0A0; }
 body.theme-light .hero-scroll { background: rgba(200,192,176,.3); }
 body.theme-light .hero-scroll span { background: #C8C0B0; }
 body.theme-light #navbar ul.open { background: rgba(245,243,239,.98); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
-body.theme-light #navbar ul.open a { color: #1a1a1a; }
+body.theme-light .g-overlay small { color: #e8e0d0; }
 
 body { background: var(--bg); color: var(--text); }
 
@@ -123,7 +123,9 @@ body[data-gallery="lightbox"] .g-card:hover video { transform: scale(1.06); }
 .logo { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--text); }
 .logo span { color: var(--accent); }
 #navbar ul { display: flex; gap: 2.5rem; }
-#navbar ul a { font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text2); transition: color .2s; }
+#navbar ul a { font-size: .8rem; letter-spacing: .12em; text-transform: uppercase; color: var(--text2); transition: color .4s; }
+body.theme-light #navbar:not(.scrolled) ul a { color: #B8B0A0; }
+body.theme-light #navbar.scrolled ul a { color: #6B6560; }
 #navbar ul a:hover { color: var(--accent); }
 .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
 .hamburger span { display: block; width: 24px; height: 1.5px; background: var(--text); transition: all .3s; }
@@ -158,7 +160,7 @@ body[data-gallery="lightbox"] .g-card:hover video { transform: scale(1.06); }
 #about { background: var(--bg2); }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
 .img-frame { position: relative; max-width: 340px; margin: 0 auto; }
-.img-frame img { border-radius: 2px; }
+.img-frame img { border-radius: 2px; object-fit: contain; }
 .img-accent {
   position: absolute; bottom: -1.5rem; right: -1.5rem;
   width: 60%; height: 60%; border: 2px solid var(--accent); border-radius: 2px; z-index: -1;
@@ -319,7 +321,7 @@ body.theme-light .btn-gold { color: #e8e0d0; } */
   .hamburger { display: flex; }
   #navbar { padding: 1rem 1.5rem; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-  .img-frame { max-width: 260px; }
+  .img-frame { max-width: 200px; }
   .img-accent { display: none; }
   .services-grid { grid-template-columns: 1fr; }
   .services-grid-bottom { flex-direction: column; }
