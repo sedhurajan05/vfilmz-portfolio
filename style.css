@@ -322,7 +322,7 @@ body.theme-light .btn-gold { color: #e8e0d0; } */
   body[data-gallery="lightbox"] .gallery-wrap { grid-template-columns: 1fr; }
   footer { flex-direction: column; gap: 1rem; text-align: center; }
   .stats { gap: 1.5rem; }
-  .hero-scroll { bottom: 7rem; }
+  .hero-scroll { bottom: 9rem; }
   .hero-content { margin-top: -4rem; }
 }
 
