@@ -210,5 +210,15 @@ document.getElementById('contactForm').addEventListener('submit', async e => {
   setTimeout(() => msg.textContent = '', 5000);
 });
 
+// ── ABOUT PHOTO ──
+fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/vfilmz_about.json`)
+  .then(r => r.ok ? r.json() : null)
+  .then(data => {
+    if (data && data.resources.length) {
+      document.getElementById('aboutImg').src =
+        `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto/${data.resources[data.resources.length - 1].public_id}`;
+    }
+  });
+
 // ── INIT ──
 loadAllPhotos();
