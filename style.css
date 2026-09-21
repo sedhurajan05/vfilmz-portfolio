@@ -160,6 +160,7 @@ body.theme-light #navbar.scrolled ul a { color: #6B6560; }
 #about { background: var(--bg2); }
 .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; }
 .img-frame { position: relative; max-width: 340px; margin: 0 auto; }
+.about-photo-label { display: block; text-align: center; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--text2); margin-top: 2.5rem; font-weight: 300; }
 .img-frame img { border-radius: 2px; object-fit: contain; }
 .img-accent {
   position: absolute; bottom: -1.5rem; right: -1.5rem;
@@ -322,6 +323,7 @@ body.theme-light .btn-gold { color: #e8e0d0; } */
   #navbar { padding: 1rem 1.5rem; }
   .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
   .img-frame { max-width: 200px; }
+  .about-photo-label { display: block; text-align: center; font-size: .7rem; letter-spacing: .2em; text-transform: uppercase; color: var(--text2); margin-top: .3rem; font-weight: 300; }
   .img-accent { display: none; }
   .services-grid { grid-template-columns: 1fr; }
   .services-grid-bottom { flex-direction: column; }
