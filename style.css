@@ -37,6 +37,8 @@ body.theme-light {
 }
 body.theme-light em { color: #A8A090; }
 body.theme-light #navbar .logo span { color: #B8B0A0; }
+body.theme-light .hero-scroll { background: rgba(200,192,176,.3); }
+body.theme-light .hero-scroll span { background: #C8C0B0; }
 
 body { background: var(--bg); color: var(--text); }
 
@@ -320,6 +322,7 @@ body.theme-light .btn-gold { color: #e8e0d0; } */
   body[data-gallery="lightbox"] .gallery-wrap { grid-template-columns: 1fr; }
   footer { flex-direction: column; gap: 1rem; text-align: center; }
   .stats { gap: 1.5rem; }
+  .hero-scroll { bottom: 4.5rem; }
 }
 
 
