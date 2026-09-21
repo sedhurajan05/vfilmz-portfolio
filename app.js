@@ -184,8 +184,16 @@ window.addEventListener('scroll', scrollHandler, { passive: true });
 document.addEventListener('scroll', scrollHandler, { passive: true });
 window.addEventListener('touchmove', scrollHandler, { passive: true });
 new IntersectionObserver(([e]) => navbar.classList.toggle('scrolled', !e.isIntersecting), { threshold: 0.1 }).observe(document.getElementById('hero'));
-document.getElementById('hamburger').addEventListener('click', () => {
+document.getElementById('hamburger').addEventListener('click', e => {
+  e.stopPropagation();
   document.querySelector('#navbar ul').classList.toggle('open');
+});
+document.addEventListener('click', e => {
+  const ul = document.querySelector('#navbar ul');
+  const hamburger = document.getElementById('hamburger');
+  if (!hamburger.contains(e.target) && !ul.contains(e.target)) {
+    ul.classList.remove('open');
+  }
 });
 document.querySelectorAll('#navbar ul a').forEach(a => {
   a.addEventListener('click', () => document.querySelector('#navbar ul').classList.remove('open'));
