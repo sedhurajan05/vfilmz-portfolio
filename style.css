@@ -39,6 +39,8 @@ body.theme-light em { color: #A8A090; }
 body.theme-light #navbar .logo span { color: #B8B0A0; }
 body.theme-light .hero-scroll { background: rgba(200,192,176,.3); }
 body.theme-light .hero-scroll span { background: #C8C0B0; }
+body.theme-light #navbar ul.open { background: rgba(245,243,239,.98); box-shadow: 0 8px 20px rgba(0,0,0,.15); }
+body.theme-light #navbar ul.open a { color: #1a1a1a; }
 
 body { background: var(--bg); color: var(--text); }
 
