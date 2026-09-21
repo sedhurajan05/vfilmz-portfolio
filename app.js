@@ -13,13 +13,13 @@ async function fetchFromCloudinary(cat) {
     fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/vfilmz_${cat}.json`),
     fetch(`https://res.cloudinary.com/${CLOUD_NAME}/video/list/vfilmz_${cat}.json`)
   ]);
-  const images = imgRes.ok ? (await imgRes.json()).resources.map(r => ({
+  const images = imgRes.ok ? (await imgRes.json()).resources.reverse().map(r => ({
     src: `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/q_auto,f_auto/${r.public_id}`,
     title: r.public_id.replace(/[-_]/g, ' '),
     cat, type: 'image',
     h: r.height > r.width ? 'tall' : 'wide'
   })) : [];
-  const videos = vidRes.ok ? (await vidRes.json()).resources.map(r => ({
+  const videos = vidRes.ok ? (await vidRes.json()).resources.reverse().map(r => ({
     src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto/${r.public_id}.${r.format}`,
     thumb: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto,f_auto,so_0/${r.public_id}.jpg`,
     title: r.public_id.replace(/[-_]/g, ' '),
