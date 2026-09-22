@@ -83,7 +83,7 @@ HTML uses **tags** like `<div>`, `<section>`, `<p>` to create building blocks on
   <button class="sw active" data-theme="dark">Dark / Gold</button>
   <button class="sw" data-theme="light">Light / Silver</button>
   <button class="sw active" data-gallery="masonry">Masonry Grid</button>
-  ...
+  <button class="sw" data-gallery="lightbox">Lightbox Popup</button>
 </div>
 ```
 
@@ -94,6 +94,8 @@ HTML uses **tags** like `<div>`, `<section>`, `<p>` to create building blocks on
 | `data-theme="dark"` | Custom attribute — JavaScript reads this to switch themes |
 | `data-gallery="masonry"` | Custom attribute — JavaScript reads this to switch gallery layout |
 | `class="sw active"` | `sw` = switch button style, `active` = currently selected |
+
+> **Note:** Simple Grid option was removed. Only Masonry Grid and Lightbox Popup are available.
 
 ---
 
@@ -117,8 +119,10 @@ HTML uses **tags** like `<div>`, `<section>`, `<p>` to create building blocks on
 | `<nav>` | Semantic tag that tells browser "this is a navigation menu" |
 | `href="#hero"` | `#` means scroll to the element with `id="hero"` on the same page |
 | `class="logo"` | Styles the Vfilmz brand name |
-| `<span>filmz</span>` | Wraps "filmz" separately so CSS can color it differently (gold/silver) |
+| `<span>filmz</span>` | Wraps "filmz" separately so CSS can color it differently |
 | `id="hamburger"` | The 3-line menu icon shown on mobile screens |
+
+> **Mobile behaviour:** Tapping anywhere outside the menu automatically closes it.
 
 ---
 
@@ -138,9 +142,29 @@ HTML uses **tags** like `<div>`, `<section>`, `<p>` to create building blocks on
 |------|-------------|
 | `id="hero"` | Unique name so nav links can scroll to this section |
 | `class="hero-bg"` | Empty div — CSS adds the background photo to it |
-| `<em>Timeless</em>` | Makes the word italic AND applies the gold/silver accent color |
+| `<em>Timeless</em>` | Makes the word italic AND applies the accent color |
 | `class="btn-gold"` | Styles the button with a gold border |
 | `<br/>` | Line break — forces "Moments" to the next line |
+
+---
+
+### About Section
+```html
+<section id="about">
+  <div class="img-frame">
+    <img id="aboutImg" src="" alt="Vfilmz Photographer"/>
+    <p class="about-photo-label">Velmurugan</p>
+  </div>
+</section>
+```
+
+| Part | What it does |
+|------|-------------|
+| `id="aboutImg"` | JavaScript fetches the photo from Cloudinary and sets this src dynamically |
+| `src=""` | Empty by default — filled by `app.js` using `vfilmz_about` Cloudinary tag |
+| `class="about-photo-label"` | Shows "Velmurugan" text below the photo |
+
+> **To change the About photo:** Upload a new photo to Cloudinary and tag it `vfilmz_about`. No code changes needed.
 
 ---
 
@@ -158,25 +182,23 @@ HTML uses **tags** like `<div>`, `<section>`, `<p>` to create building blocks on
 | `id="galleryWrap"` | Empty container — `app.js` fills this with photo/video cards automatically |
 | `<!-- comment -->` | HTML comment — not visible on the website, just a note for developers |
 
-> **Important:** You do NOT add photos here manually. Photos are fetched from **Cloudinary** (cloud storage) by JavaScript automatically.
+> **Important:** You do NOT add photos here manually. Photos are fetched from **Cloudinary** (cloud storage) by JavaScript automatically. Newest uploaded photos appear first.
 
 ---
 
 ### Services Section
+
+Services are split into two rows:
+
+**Row 1 (4 cards):** Portrait, Wedding, Landscape, Fashion
+**Row 2 (3 cards centered):** Drone, Photo Editing, Video Editing
+
 ```html
-<div class="service-card flip-card">
-  <div class="flip-inner">
-    <div class="flip-front">
-      <i class="fa-solid fa-user"></i>
-      <h3>Portrait</h3>
-      <p>Expressive portraits...</p>
-      <span class="price">From ₹1,000</span>
-    </div>
-    <div class="flip-back">
-      <h3>Portrait</h3>
-      <p>Natural lighting · Studio sessions...</p>
-    </div>
-  </div>
+<div class="services-grid">
+  <!-- Row 1: 4 cards -->
+</div>
+<div class="services-grid-bottom">
+  <!-- Row 2: 3 cards centered -->
 </div>
 ```
 
@@ -186,7 +208,9 @@ HTML uses **tags** like `<div>`, `<section>`, `<p>` to create building blocks on
 | `class="flip-front"` | What you see before clicking |
 | `class="flip-back"` | What you see after clicking (details) |
 | `class="featured"` | Adds gold border to highlight the Wedding card |
-| `<i class="fa-solid fa-user">` | Font Awesome icon (the person icon) |
+| `services-grid-bottom` | Flex container that centers the bottom row cards |
+
+> **Note:** Prices have been removed from all service cards.
 
 ---
 
@@ -196,7 +220,13 @@ HTML uses **tags** like `<div>`, `<section>`, `<p>` to create building blocks on
   <input type="hidden" name="access_key" value="1056db64-..."/>
   <input type="text" name="name" placeholder="Your Name" required/>
   <select name="service" id="serviceSelect">
+    <option>Portrait</option>
     <option value="Wedding">Wedding</option>
+    <option>Landscape</option>
+    <option>Fashion</option>
+    <option>Drone</option>
+    <option>Photo Editing</option>
+    <option>Video Editing</option>
   </select>
   <button type="submit" class="btn-gold">Send Message</button>
 </form>
@@ -212,16 +242,27 @@ HTML uses **tags** like `<div>`, `<section>`, `<p>` to create building blocks on
 
 ---
 
+### Contact Links
+```html
+<a href="mailto:vfilmz01@gmail.com">vfilmz01@gmail.com</a>
+<a href="https://wa.me/916383100912">@vfilmz_01</a>
+<a href="https://www.instagram.com/vfilmz.fx">@vfilmz.fx</a>
+<a href="tel:+916383100912">+91 6383100912</a>
+```
+
+---
+
 ### Footer
 ```html
 <footer>
   <div class="logo">V<span>filmz</span></div>
-  <div style="display:flex; flex-direction:column; align-items:center;">
+  <div>
     <p>© 2026 Vfilmz. All rights reserved.</p>
-    <p>Built by <span style="color:var(--accent);">SedhuTech</span></p>
+    <p>Built by <span>SedhuTech</span></p>
+    <p>DM to Build your Brand's website <a href="https://www.instagram.com/codex_builds">@codex_builds</a></p>
     <div class="social">
-      <a href="https://wa.me/qr/..." target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-      <a href="https://www.instagram.com/codex_builds" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://wa.me/qr/..."><i class="fa-brands fa-whatsapp"></i></a>
+      <a href="https://www.instagram.com/codex_builds"><i class="fa-brands fa-instagram"></i></a>
     </div>
   </div>
 </footer>
@@ -232,6 +273,7 @@ HTML uses **tags** like `<div>`, `<section>`, `<p>` to create building blocks on
 | `target="_blank"` | Opens the link in a new browser tab |
 | `var(--accent)` | Uses the CSS theme color variable (gold in dark, silver in light) |
 | `fa-brands fa-whatsapp` | WhatsApp icon from Font Awesome |
+| `@codex_builds` | Clickable Instagram link for SedhuTech |
 
 ---
 
@@ -240,13 +282,6 @@ HTML uses **tags** like `<div>`, `<section>`, `<p>` to create building blocks on
 ## 2. style.css — The Design
 
 This file controls **how everything looks** — colors, fonts, sizes, spacing, animations, and layout. Written in **CSS (Cascading Style Sheets)**.
-
-### What is CSS?
-CSS uses **selectors** to target HTML elements and apply **properties**. Example:
-```css
-h1 { color: red; font-size: 2rem; }
-```
-This means: "Find all `<h1>` tags and make them red and large."
 
 ---
 
@@ -267,12 +302,33 @@ body.theme-light {
 
 | Part | What it does |
 |------|-------------|
-| `--bg` | CSS variable for background color. Used everywhere as `var(--bg)` |
-| `--accent` | The gold (dark theme) or silver/dark (light theme) highlight color |
+| `--bg` | CSS variable for background color |
+| `--accent` | Gold (dark theme) or grey (light theme) highlight color |
 | `--text2` | Secondary text color — used for descriptions, subtitles |
-| `rgba(201,168,76,.2)` | Gold color at 20% opacity — used for subtle borders |
 
-> **How to change theme colors:** Just edit the hex values here (`#c9a84c` = gold). All elements using `var(--accent)` will update automatically.
+---
+
+### Light Theme Overrides
+```css
+body.theme-light em { color: #A8A090; }
+body.theme-light #navbar .logo span { color: #B8B0A0; }
+body.theme-light .hero-scroll { background: rgba(200,192,176,.3); }
+body.theme-light .hero-scroll span { background: #C8C0B0; }
+body.theme-light #navbar ul.open { background: rgba(245,243,239,.98); }
+body.theme-light .g-overlay small { color: #e8e0d0; }
+body.theme-light #navbar:not(.scrolled) ul a { color: #B8B0A0; }
+body.theme-light #navbar.scrolled ul a { color: #6B6560; }
+```
+
+| Part | What it does |
+|------|-------------|
+| `em { color: #A8A090 }` | "Timeless" word color in light mode — dusty grey |
+| `.logo span { color: #B8B0A0 }` | "filmz" navbar color in light mode — muted taupe |
+| `.hero-scroll` | Scroll indicator color in light mode |
+| `#navbar ul.open` | Mobile menu dropdown background in light mode |
+| `.g-overlay small` | Gallery hover category text color in light mode |
+| `:not(.scrolled) ul a` | Nav links color at top of page in light mode |
+| `.scrolled ul a` | Nav links color after scrolling in light mode |
 
 ---
 
@@ -285,8 +341,40 @@ body.theme-light {
 | Part | What it does |
 |------|-------------|
 | `position: fixed` | Keeps the navbar stuck at the top while scrolling |
-| `z-index: 900` | Makes navbar appear above other elements (higher number = on top) |
+| `z-index: 900` | Makes navbar appear above other elements |
 | `.scrolled` | Class added by JavaScript when user scrolls — adds background to navbar |
+
+---
+
+### About Section
+```css
+.img-frame { position: relative; max-width: 340px; margin: 0 auto; }
+.img-frame img { border-radius: 2px; object-fit: contain; }
+.about-photo-label { display: block; text-align: center; font-size: .7rem;
+  letter-spacing: .2em; text-transform: uppercase; color: var(--text2);
+  margin-top: 2.5rem; font-weight: 300; }
+```
+
+| Part | What it does |
+|------|-------------|
+| `max-width: 340px` | Limits about photo size on desktop |
+| `object-fit: contain` | Shows full photo without cropping |
+| `.about-photo-label` | "Velmurugan" text below the photo — lightweight uppercase style |
+
+---
+
+### Services Layout
+```css
+.services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.services-grid-bottom { display: flex; justify-content: center; gap: 1.5rem; margin-top: 1.5rem; flex-wrap: wrap; }
+.services-grid-bottom .flip-card { width: calc(25% - 1.5rem); min-width: 240px; }
+```
+
+| Part | What it does |
+|------|-------------|
+| `services-grid` | Top row — 4 equal columns |
+| `services-grid-bottom` | Bottom row — flex centered |
+| `calc(25% - 1.5rem)` | Bottom cards match top card width |
 
 ---
 
@@ -304,75 +392,47 @@ body.theme-light {
 
 | Part | What it does |
 |------|-------------|
-| `center/cover` | Centers the image and makes it cover the full area without stretching |
+| `center/cover` | Centers the image and makes it cover the full area |
 | `animation: heroZoom 8s` | Runs the zoom animation every 8 seconds |
-| `infinite alternate` | Loops forever, alternating between zoom-in and zoom-out |
-| `@keyframes` | Defines the animation — from (start) to (end) |
+| `infinite alternate` | Loops forever, alternating zoom-in and zoom-out |
 
 ---
 
 ### Gallery Layouts
 ```css
 body[data-gallery="masonry"] .gallery-wrap { columns: 3; column-gap: 1rem; }
-body[data-gallery="simple"]  .gallery-wrap { display: grid; grid-template-columns: repeat(3, 1fr); }
 body[data-gallery="lightbox"] .gallery-wrap { display: grid; grid-template-columns: repeat(3, 1fr); }
 ```
 
 | Part | What it does |
 |------|-------------|
-| `body[data-gallery="masonry"]` | Only applies when the body has `data-gallery="masonry"` attribute |
-| `columns: 3` | Pinterest-style layout — 3 columns, images flow naturally |
-| `display: grid` | CSS Grid — equal-sized boxes in rows and columns |
-| `repeat(3, 1fr)` | 3 columns, each taking equal (`1fr` = 1 fraction) of the space |
+| `columns: 3` | Pinterest-style masonry layout |
+| `display: grid` | Equal-sized boxes in rows and columns |
 
 ---
 
-### Flip Card (Services)
-```css
-.flip-card { perspective: 1000px; }
-.flip-inner { transition: transform .6s; transform-style: preserve-3d; }
-.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
-.flip-front { backface-visibility: hidden; }
-.flip-back  { backface-visibility: hidden; transform: rotateY(180deg); }
-```
-
-| Part | What it does |
-|------|-------------|
-| `perspective: 1000px` | Creates the 3D depth effect |
-| `transform-style: preserve-3d` | Keeps child elements in 3D space |
-| `rotateY(180deg)` | Rotates the card 180° on the Y axis (horizontal flip) |
-| `backface-visibility: hidden` | Hides the back of each face so they don't show through |
-
----
-
-### Responsive Design
+### Responsive Design (Mobile)
 ```css
 @media (max-width: 768px) {
-  .services-grid { grid-template-columns: 1fr; }
-  .about-grid, .contact-grid { grid-template-columns: 1fr; }
   .hamburger { display: flex; }
+  .about-grid, .contact-grid { grid-template-columns: 1fr; }
+  .img-frame { max-width: 200px; }
+  .services-grid { grid-template-columns: 1fr; }
+  .services-grid-bottom { flex-direction: column; }
+  .services-grid-bottom .flip-card { width: 100%; }
+  body[data-gallery="masonry"] .gallery-wrap { columns: 2; }
+  .hero-scroll { bottom: 9rem; }
+  .hero-content { margin-top: -4rem; }
 }
 ```
 
 | Part | What it does |
 |------|-------------|
-| `@media (max-width: 768px)` | These styles ONLY apply on screens smaller than 768px (mobile) |
-| `grid-template-columns: 1fr` | Changes multi-column layout to single column on mobile |
-| `.hamburger { display: flex }` | Shows the 3-line menu icon on mobile (hidden on desktop) |
-
----
-
-### Light Theme Fix
-```css
-body.theme-light #navbar ul a,
-body.theme-light .hero-sub,
-body.theme-light .btn-gold { color: #e8e0d0; }
-```
-
-| Part | What it does |
-|------|-------------|
-| `body.theme-light` | Only applies when light theme is active |
-| `#e8e0d0` | Warm off-white color — visible against the hero background image |
+| `.hamburger { display: flex }` | Shows 3-line menu icon on mobile |
+| `.img-frame { max-width: 200px }` | Smaller about photo on mobile |
+| `columns: 2` | 2-column masonry gallery on mobile |
+| `.hero-scroll { bottom: 9rem }` | Scroll indicator moved up so it's fully visible |
+| `.hero-content { margin-top: -4rem }` | Hero content moved up on mobile |
 
 ---
 
@@ -381,9 +441,6 @@ body.theme-light .btn-gold { color: #e8e0d0; }
 ## 3. app.js — The Behavior
 
 This file makes the website **interactive and dynamic**. Written in **JavaScript**.
-
-### What is JavaScript?
-JavaScript runs in the browser and responds to user actions — clicks, scrolls, form submissions. It can also fetch data from the internet (like photos from Cloudinary).
 
 ---
 
@@ -396,7 +453,7 @@ const CATEGORIES = ['portrait', 'wedding', 'landscape', 'fashion', 'drone'];
 | Part | What it does |
 |------|-------------|
 | `CLOUD_NAME` | Your Cloudinary account ID — used to build photo URLs |
-| `CATEGORIES` | List of photo categories — must match folder/tag names in Cloudinary |
+| `CATEGORIES` | List of photo categories — must match tag names in Cloudinary |
 
 > **To add a new category:** Add it to this array AND create a matching tag in Cloudinary.
 
@@ -409,43 +466,54 @@ async function fetchFromCloudinary(cat) {
     fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/vfilmz_${cat}.json`),
     fetch(`https://res.cloudinary.com/${CLOUD_NAME}/video/list/vfilmz_${cat}.json`)
   ]);
+  const images = imgRes.ok ? (await imgRes.json()).resources.reverse().map(...) : [];
+  const videos = vidRes.ok ? (await vidRes.json()).resources.reverse().map(...) : [];
 }
 ```
 
 | Part | What it does |
 |------|-------------|
 | `async function` | A function that can wait for internet requests to complete |
-| `await` | Pauses until the fetch is done before continuing |
 | `Promise.all([...])` | Fetches images AND videos at the same time (faster) |
-| `fetch(url)` | Makes an internet request to get data from a URL |
-| `vfilmz_${cat}.json` | Cloudinary tag name — e.g. `vfilmz_portrait.json` |
+| `.reverse()` | Newest uploaded photos/videos appear first in gallery |
 
 ---
 
-### Rendering the Gallery
+### About Photo (Dynamic)
 ```js
-function renderGallery() {
-  filteredPhotos = currentCat === 'all' ? photos : photos.filter(p => p.cat === currentCat);
-  wrap.innerHTML = '';
-  filteredPhotos.forEach((p, i) => {
-    const card = document.createElement('div');
-    card.className = 'g-card';
-    card.innerHTML = `<img src="${p.src}" loading="lazy"/>`;
-    card.addEventListener('click', () => openLightbox(i));
-    wrap.appendChild(card);
+fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/vfilmz_about.json`)
+  .then(r => r.ok ? r.json() : null)
+  .then(data => {
+    if (data && data.resources.length) {
+      document.getElementById('aboutImg').src = `.../${data.resources[data.resources.length - 1].public_id}`;
+    }
   });
-}
 ```
 
 | Part | What it does |
 |------|-------------|
-| `currentCat === 'all'` | If "All" filter is selected, show every photo |
-| `photos.filter(p => p.cat === currentCat)` | Otherwise, only show photos matching the selected category |
-| `wrap.innerHTML = ''` | Clears the gallery before re-rendering |
-| `document.createElement('div')` | Creates a new HTML `<div>` element in memory |
-| `loading="lazy"` | Images only load when they scroll into view (faster page load) |
-| `addEventListener('click', ...)` | When card is clicked, open the lightbox |
-| `wrap.appendChild(card)` | Adds the card into the gallery on the page |
+| `vfilmz_about` | Cloudinary tag — upload photo with this tag to update About Me photo |
+| `data.resources[last]` | Always picks the latest uploaded photo with this tag |
+
+---
+
+### Hamburger Menu (Mobile)
+```js
+document.getElementById('hamburger').addEventListener('click', e => {
+  e.stopPropagation();
+  document.querySelector('#navbar ul').classList.toggle('open');
+});
+document.addEventListener('click', e => {
+  if (!hamburger.contains(e.target) && !ul.contains(e.target)) {
+    ul.classList.remove('open');
+  }
+});
+```
+
+| Part | What it does |
+|------|-------------|
+| `classList.toggle('open')` | Opens/closes the mobile menu |
+| `document.addEventListener('click')` | Closes menu when tapping anywhere outside |
 
 ---
 
@@ -457,26 +525,13 @@ function openLightbox(i) {
   document.getElementById('lightbox').classList.add('active');
   document.body.style.overflow = 'hidden';
 }
-function closeLightbox() {
-  document.getElementById('lightbox').classList.remove('active');
-  document.body.style.overflow = '';
-}
 ```
 
 | Part | What it does |
 |------|-------------|
-| `classList.add('active')` | Adds the `active` class — CSS uses this to show the lightbox |
-| `classList.remove('active')` | Removes `active` — CSS hides the lightbox |
-| `overflow = 'hidden'` | Prevents the page from scrolling while lightbox is open |
-| `overflow = ''` | Restores scrolling when lightbox is closed |
+| `classList.add('active')` | Shows the lightbox |
+| `overflow = 'hidden'` | Prevents page scrolling while lightbox is open |
 
-```js
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft')  { lbIndex--; updateLightbox(); }
-  if (e.key === 'ArrowRight') { lbIndex++; updateLightbox(); }
-});
-```
 > Keyboard navigation — press `←` `→` to browse, `Esc` to close.
 
 ---
@@ -490,44 +545,21 @@ document.querySelectorAll('[data-theme]').forEach(btn => {
 });
 ```
 
-| Part | What it does |
-|------|-------------|
-| `querySelectorAll('[data-theme]')` | Finds all buttons that have a `data-theme` attribute |
-| `.replace(/theme-\w+/, ...)` | Replaces the current theme class (e.g. `theme-dark`) with the new one |
-| `btn.dataset.theme` | Reads the value of `data-theme` attribute from the clicked button |
-
----
-
-### Gallery Style Switcher
-```js
-document.querySelectorAll('[data-gallery]').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.body.dataset.gallery = btn.dataset.gallery;
-    renderGallery();
-  });
-});
-```
-
-| Part | What it does |
-|------|-------------|
-| `document.body.dataset.gallery` | Sets `data-gallery` on the body tag |
-| CSS then reads this to apply the correct layout (masonry/grid/lightbox) |
-| `renderGallery()` | Re-renders the gallery in the new layout |
-
 ---
 
 ### Navbar Scroll Effect
 ```js
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.pageYOffset > 60);
-});
+const scrollHandler = () => {
+  navbar.classList.toggle('scrolled', scrolled > 60);
+};
+window.addEventListener('scroll', scrollHandler, { passive: true });
+window.addEventListener('touchmove', scrollHandler, { passive: true });
 ```
 
 | Part | What it does |
 |------|-------------|
-| `scroll` event | Fires every time the user scrolls |
-| `pageYOffset > 60` | Checks if user has scrolled more than 60px down |
-| `classList.toggle('scrolled', ...)` | Adds/removes `scrolled` class based on scroll position |
+| `scrolled > 60` | Adds background to navbar after 60px scroll |
+| `touchmove` | Also works on mobile touch scroll |
 
 ---
 
@@ -540,16 +572,10 @@ document.getElementById('contactForm').addEventListener('submit', async e => {
   });
   const data = await res.json();
   msg.textContent = data.success ? 'Thank you! I\'ll be in touch within 24 hours.' : 'Something went wrong.';
+  if (data.success) e.target.reset();
+  setTimeout(() => msg.textContent = '', 5000);
 });
 ```
-
-| Part | What it does |
-|------|-------------|
-| `e.preventDefault()` | Stops the default form behavior (page reload) |
-| `new FormData(e.target)` | Collects all form field values automatically |
-| `fetch(..., { method: 'POST' })` | Sends the form data to Web3Forms API |
-| `data.success` | Web3Forms returns `true` if email was sent successfully |
-| `e.target.reset()` | Clears all form fields after successful submission |
 
 ---
 
@@ -567,7 +593,9 @@ document.getElementById('contactForm').addEventListener('submit', async e => {
 | Change phone number | `index.html` → `<a href="tel:...">` |
 | Add a new photo category | `app.js` → add to `CATEGORIES` array + add tag in Cloudinary |
 | Change footer social links | `index.html` → `<footer>` → update `href` in `<a>` tags |
-| Change pricing | `index.html` → find `<span class="price">` and update text |
+| Change About Me photo | Upload new photo to Cloudinary with tag `vfilmz_about` |
+| Change "Velmurugan" name | `index.html` → find `class="about-photo-label"` |
+| Change light theme nav color | `style.css` → `body.theme-light #navbar` rules |
 
 ---
 
