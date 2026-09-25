@@ -42,7 +42,7 @@ function renderGallery() {
   wrap.innerHTML = '';
   filteredPhotos.forEach((p, i) => {
     const card = document.createElement('div');
-    card.className = 'g-card';
+    card.className = `g-card${p.type === 'video' && p.h === 'wide' ? ' g-card-wide' : ''}`;
     card.innerHTML = p.type === 'video' ? `
       <video data-src="${p.src}" poster="${p.thumb}" muted playsinline preload="none" disablepictureinpicture controlslist="nodownload nofullscreen"></video>` : `
       <img src="${p.src}" alt="" title="" loading="lazy"/>
