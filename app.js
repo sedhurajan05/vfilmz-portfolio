@@ -20,7 +20,7 @@ async function fetchFromCloudinary(cat) {
     h: r.height > r.width ? 'tall' : 'wide'
   })) : [];
   const videos = vidRes.ok ? (await vidRes.json()).resources.reverse().map(r => ({
-    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto,w_720/${r.public_id}.${r.format}`,
+    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto:best/${r.public_id}.${r.format}`,
     thumb: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto,f_auto,so_0/${r.public_id}.jpg`,
     title: r.public_id.replace(/[-_]/g, ' '),
     cat, type: 'video',
@@ -99,14 +99,30 @@ function updateLightbox() {
   const p = filteredPhotos[lbIndex];
   const lbImg = document.getElementById('lbImg');
   const lbVid = document.getElementById('lbVid');
+  const lbPrev = document.getElementById('lbPrev');
+  const lbNext = document.getElementById('lbNext');
   if (p.type === 'video') {
     lbImg.style.display = 'none';
     lbVid.style.display = 'block';
     lbVid.src = p.src;
-    lbVid.play();
+    lbVid.load();
+    lbPrev.style.opacity = '0'; lbPrev.style.pointerEvents = 'none';
+    lbNext.style.opacity = '0'; lbNext.style.pointerEvents = 'none';
+    lbVid.onplay = () => {
+      lbPrev.style.opacity = '0'; lbPrev.style.pointerEvents = 'none';
+      lbNext.style.opacity = '0'; lbNext.style.pointerEvents = 'none';
+    };
+    lbVid.onpause = () => {
+      lbPrev.style.opacity = '1'; lbPrev.style.pointerEvents = 'auto';
+      lbNext.style.opacity = '1'; lbNext.style.pointerEvents = 'auto';
+    };
   } else {
     lbVid.style.display = 'none';
     lbVid.pause();
+    lbVid.onplay = null;
+    lbVid.onpause = null;
+    lbPrev.style.opacity = '1'; lbPrev.style.pointerEvents = 'auto';
+    lbNext.style.opacity = '1'; lbNext.style.pointerEvents = 'auto';
     lbImg.style.display = 'block';
     lbImg.src = p.src;
   }
