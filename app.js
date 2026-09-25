@@ -20,7 +20,7 @@ async function fetchFromCloudinary(cat) {
     h: r.height > r.width ? 'tall' : 'wide'
   })) : [];
   const videos = vidRes.ok ? (await vidRes.json()).resources.reverse().map(r => ({
-    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto/${r.public_id}.${r.format}`,
+    src: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto,w_720/${r.public_id}.${r.format}`,
     thumb: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto,f_auto,so_0/${r.public_id}.jpg`,
     title: r.public_id.replace(/[-_]/g, ' '),
     cat, type: 'video',
@@ -44,7 +44,7 @@ function renderGallery() {
     const card = document.createElement('div');
     card.className = 'g-card';
     card.innerHTML = p.type === 'video' ? `
-      <video src="${p.src}" poster="${p.thumb}" muted loop playsinline></video>
+      <video data-src="${p.src}" poster="${p.thumb}" muted playsinline preload="none"></video>
       <div class="g-overlay">
         <small>${p.cat} · <i class="fa-solid fa-play"></i></small>
       </div>` : `
@@ -54,8 +54,32 @@ function renderGallery() {
       </div>`;
     card.addEventListener('click', () => openLightbox(i));
     wrap.appendChild(card);
+
+    if (p.type === 'video') {
+      const vid = card.querySelector('video');
+      videoObserver.observe(card);
+      vid.addEventListener('ended', () => {
+        vid.currentTime = 0;
+        vid.play().catch(() => {});
+      });
+      card._vid = vid;
+    }
   });
 }
+
+const videoObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    const vid = e.target._vid;
+    if (!vid) return;
+    if (e.isIntersecting) {
+      if (!vid.src) vid.src = vid.dataset.src;
+      if (vid.paused) vid.play().catch(() => {});
+    } else {
+      vid.pause();
+      vid.currentTime = 0;
+    }
+  });
+}, { threshold: 0.5 });
 
 // ── LIGHTBOX ──
 function openLightbox(i) {
@@ -86,7 +110,7 @@ function updateLightbox() {
     lbImg.style.display = 'block';
     lbImg.src = p.src;
   }
-  document.getElementById('lbCaption').textContent = p.title + ' · ' + p.cat;
+  document.getElementById('lbCaption').textContent = p.cat;
 }
 document.getElementById('lbClose').addEventListener('click', closeLightbox);
 document.getElementById('lbPrev').addEventListener('click', () => {
@@ -106,6 +130,17 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') { lbIndex = (lbIndex - 1 + filteredPhotos.length) % filteredPhotos.length; updateLightbox(); }
   if (e.key === 'ArrowRight') { lbIndex = (lbIndex + 1) % filteredPhotos.length; updateLightbox(); }
 });
+
+// ── LIGHTBOX SWIPE (mobile) ──
+let tsX = 0;
+document.getElementById('lightbox').addEventListener('touchstart', e => { tsX = e.touches[0].clientX; }, { passive: true });
+document.getElementById('lightbox').addEventListener('touchend', e => {
+  const diff = tsX - e.changedTouches[0].clientX;
+  if (Math.abs(diff) < 40) return;
+  if (diff > 0) { lbIndex = (lbIndex + 1) % filteredPhotos.length; }
+  else { lbIndex = (lbIndex - 1 + filteredPhotos.length) % filteredPhotos.length; }
+  updateLightbox();
+}, { passive: true });
 
 // ── SETTINGS PANEL ──
 const settingsToggle = document.getElementById('settingsToggle');
