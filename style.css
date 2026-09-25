@@ -81,14 +81,14 @@ section { padding: 6rem 0; }
 
 /* ── SETTINGS PANEL ── */
 .settings-panel {
-  position: fixed; bottom: 5.5rem; right: 2rem; z-index: 999;
+  position: fixed; bottom: 5.5rem; right: 1rem; z-index: 999;
   background: var(--bg2); border: 1px solid var(--border);
-  padding: 1.4rem; width: 220px; border-radius: 4px;
+  padding: 1.4rem; width: min(220px, calc(100vw - 2rem)); border-radius: 4px;
   box-shadow: var(--shadow);
   transform: translateY(20px) scale(.95); opacity: 0; pointer-events: none;
   transition: opacity .15s, transform .15s;
 }
-.g-card video { width: 100%; height: 100%; min-height: 200px; object-fit: cover; border-radius: 2px; transition: transform .5s; }
+.g-card video { width: 100%; height: 100%; min-height: 200px; object-fit: cover; border-radius: 2px; }
 body[data-gallery="masonry"] .g-card:hover video { transform: scale(1.04); }
 body[data-gallery="simple"] .g-card:hover video { transform: scale(1.06); }
 body[data-gallery="lightbox"] .g-card:hover video { transform: scale(1.06); }
@@ -186,7 +186,6 @@ body[data-gallery="masonry"] .g-card {
 }
 body[data-gallery="masonry"] .g-card img { border-radius: 2px; transition: transform .5s; }
 body[data-gallery="masonry"] .g-card:hover img { transform: scale(1.04); }
-body[data-gallery="masonry"] .g-card:hover video { transform: scale(1.04); }
 
 /* Simple Grid */
 body[data-gallery="simple"] .gallery-wrap {
@@ -195,7 +194,6 @@ body[data-gallery="simple"] .gallery-wrap {
 body[data-gallery="simple"] .g-card { position: relative; overflow: hidden; cursor: pointer; aspect-ratio: 4/3; }
 body[data-gallery="simple"] .g-card img { height: 100%; border-radius: 2px; transition: transform .5s; }
 body[data-gallery="simple"] .g-card:hover img { transform: scale(1.06); }
-body[data-gallery="simple"] .g-card:hover video { transform: scale(1.06); }
 
 /* Lightbox Grid */
 body[data-gallery="lightbox"] .gallery-wrap {
@@ -204,17 +202,17 @@ body[data-gallery="lightbox"] .gallery-wrap {
 body[data-gallery="lightbox"] .g-card { position: relative; overflow: hidden; cursor: zoom-in; aspect-ratio: 4/3; }
 body[data-gallery="lightbox"] .g-card img { height: 100%; border-radius: 2px; transition: transform .5s; }
 body[data-gallery="lightbox"] .g-card:hover img { transform: scale(1.06); }
-body[data-gallery="lightbox"] .g-card:hover video { transform: scale(1.06); }
 
 /* Card overlay */
 .g-card .g-overlay {
   position: absolute; inset: 0; background: rgba(0,0,0,.5);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity .3s;
+  opacity: 0; transition: opacity .3s; pointer-events: none;
 }
 .g-card:hover .g-overlay { opacity: 1; }
 .g-overlay span { color: #fff; font-family: 'Playfair Display', serif; font-size: 1rem; }
 .g-overlay small { color: var(--accent); font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; margin-top: .3rem; }
+.g-card img { will-change: transform; }
 
 /* ── LIGHTBOX MODAL ── */
 .lightbox {
@@ -231,9 +229,14 @@ body[data-gallery="lightbox"] .g-card:hover video { transform: scale(1.06); }
   display: flex; align-items: center; justify-content: center;
 }
 .lb-close:hover, .lb-prev:hover, .lb-next:hover { border-color: var(--accent); color: var(--accent); }
-.lb-close { top: 1.5rem; right: 1.5rem; width: 44px; height: 44px; border-radius: 50%; }
-.lb-prev { left: 1.5rem; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; }
-.lb-next { right: 1.5rem; top: 50%; transform: translateY(-50%); width: 44px; height: 44px; border-radius: 50%; }
+.lb-close { top: 1.5rem; right: 1.5rem; width: 48px; height: 48px; border-radius: 50%; }
+.lb-prev { left: 1rem; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; }
+.lb-next { right: 1rem; top: 50%; transform: translateY(-50%); width: 48px; height: 48px; border-radius: 50%; }
+@media (max-width: 768px) {
+  .lb-prev { left: .3rem; }
+  .lb-next { right: .3rem; }
+  .lb-close { top: .8rem; right: .8rem; }
+}
 
 /* ── SERVICES ── */
 #services { background: var(--bg2); }
@@ -309,7 +312,7 @@ footer p { color: var(--text2); font-size: .8rem; }
 
 body.theme-light #navbar ul a,
 body.theme-light .hero-sub,
-body.theme-light .btn-gold { color: #e8e0d0; } */
+body.theme-light .btn-gold { color: #e8e0d0; }
 @media (max-width: 1024px) {
   .services-grid { grid-template-columns: repeat(2, 1fr); }
   body[data-gallery="masonry"] .gallery-wrap,
