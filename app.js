@@ -24,7 +24,7 @@ async function fetchFromCloudinary(cat) {
     thumb: `https://res.cloudinary.com/${CLOUD_NAME}/video/upload/q_auto,f_auto,so_0/${r.public_id}.jpg`,
     title: r.public_id.replace(/[-_]/g, ' '),
     cat, type: 'video',
-    h: r.height > r.width ? 'wide' : 'tall'
+    h: r.height > r.width ? 'tall' : 'wide'
   })) : [];
   return [...images, ...videos];
 }
@@ -85,7 +85,7 @@ function showInstaToast() {
   if (!toast) {
     toast = document.createElement('div');
     toast.id = 'instaToast';
-    toast.innerHTML = `<i class="fa-brands fa-instagram"></i> click <a href="https://www.instagram.com/vfilmz.fx" target="_blank">@vfilmz.fx</a> to watch full video`;
+    toast.innerHTML = `<i class="fa-brands fa-instagram"></i> click <a href="#contact">@vfilmz.fx</a> to watch full video`;
     document.body.appendChild(toast);
   }
   clearTimeout(toastTimer);
