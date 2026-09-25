@@ -44,15 +44,12 @@ function renderGallery() {
     const card = document.createElement('div');
     card.className = 'g-card';
     card.innerHTML = p.type === 'video' ? `
-      <video data-src="${p.src}" poster="${p.thumb}" muted playsinline preload="none"></video>
-      <div class="g-overlay">
-        <small>${p.cat} · <i class="fa-solid fa-play"></i></small>
-      </div>` : `
+      <video data-src="${p.src}" poster="${p.thumb}" muted playsinline preload="none" disablepictureinpicture controlslist="nodownload nofullscreen"></video>` : `
       <img src="${p.src}" alt="" title="" loading="lazy"/>
       <div class="g-overlay">
         <small>${p.cat}</small>
       </div>`;
-    card.addEventListener('click', () => openLightbox(i));
+    card.addEventListener('click', () => { if (p.type !== 'video') openLightbox(i); else showInstaToast(); });
     wrap.appendChild(card);
 
     if (p.type === 'video') {
@@ -80,6 +77,21 @@ const videoObserver = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.5 });
+
+// ── INSTA TOAST ──
+let toastTimer;
+function showInstaToast() {
+  let toast = document.getElementById('instaToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'instaToast';
+    toast.innerHTML = `<i class="fa-brands fa-instagram"></i> click <a href="https://www.instagram.com/vfilmz.fx" target="_blank">@vfilmz.fx</a> to watch full video`;
+    document.body.appendChild(toast);
+  }
+  clearTimeout(toastTimer);
+  toast.classList.add('show');
+  toastTimer = setTimeout(() => toast.classList.remove('show'), 3000);
+}
 
 // ── LIGHTBOX ──
 function openLightbox(i) {
